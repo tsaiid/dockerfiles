@@ -4,6 +4,8 @@ MAINTAINER I-Ta Tsai <itsai@gmail.com>
 # Oracle Instant Client layer
 COPY instantclient/* /tmp/
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y alien && \
     alien -iv /tmp/oracle-instantclient12.2-basic-12.2.0.1.0-1.x86_64.rpm && \
     alien -iv /tmp/oracle-instantclient12.2-devel-12.2.0.1.0-1.x86_64.rpm && \
