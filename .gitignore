@@ -1,2 +1,3 @@
 caffe-py3-cpu/instantclient
 caffe-py3-gpu/instantclient
+cx_oracle/instantclient
