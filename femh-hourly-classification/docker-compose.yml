@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+   inference:
+     image: tsaiid/femh-hourly-classification:16.04
+     volumes:
+       - /home/tsaiid/git/femh-dicom/config:/app/config
+       - /home/tsaiid/git/femh-dicom/models:/app/models
+       - /home/tsaiid/git/femh-dicom/imgsrv:/imgsrv
+     ports:
+       - "11112:11112"
+     environment:
+       TZ: Asia/Taipei
+
