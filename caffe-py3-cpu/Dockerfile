@@ -52,39 +52,29 @@ RUN python3 -m pip install --upgrade pip && \
 				 flask flask_sqlalchemy
 
 ENV CAFFE_ROOT=/opt/caffe
-WORKDIR $CAFFE_ROOT
-
-# FIXME: use ARG instead of ENV once DockerHub supports this
-# https://github.com/docker/hub-feedback/issues/460
-ENV CLONE_TAG=1.0
-
-RUN git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . && \
-    cd python && for req in $(cat requirements.txt) pydot 'python-dateutil>2'; do pip3 install $req; done && cd .. && \
-    mkdir build && cd build && \
-    cmake -DCPU_ONLY=1 -Dpython_version=3 .. && \
-    make -j"$(nproc)"
-
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
 ENV PYTHONPATH $PYCAFFE_ROOT:$PYTHONPATH
 ENV PATH $CAFFE_ROOT/build/tools:$PYCAFFE_ROOT:$PATH
-RUN echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
+
+WORKDIR $CAFFE_ROOT
+
+RUN git clone -b 1.0 --depth 1 https://github.com/BVLC/caffe.git . && \
+    cd python && for req in $(cat requirements.txt) pydot 'python-dateutil>2'; do pip3 install $req; done && cd .. && \
+    mkdir build && cd build && \
+    cmake -DCPU_ONLY=1 -Dpython_version=3 .. && \
+    make -j"$(nproc)" && \
+    echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig 
 
 # pynetdicom3
-ENV PYNETDICOM_ROOT=/opt/pynetdicom3
-WORKDIR $PYNETDICOM_ROOT
+WORKDIR /opt/pynetdicom3
 
 RUN git clone --depth 1 https://github.com/pydicom/pynetdicom3.git . && \
-    #cd pynetdicom3 && \
-	python3 setup.py install
-
-# Clean
-#RUN apt-get -y autoremove && apt-get clean && \
-#    apt-get purge -y alien perl perl5 && apt-get -y autoremove && apt-get clean && \
-#    rm -rf /usr/share/doc && rm -rf /usr/share/man
+	python3 setup.py install && \
+    cd / && rm -rf /opt/pynetdicom3
 
 # Application layer
 # -- Install Application into container:
-RUN set -ex && mkdir /app
+#RUN set -ex && mkdir /app
 
 WORKDIR /app
 
