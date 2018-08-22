@@ -8,7 +8,7 @@ COPY instantclient/* /tmp/
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-		alien \
+        alien \
         build-essential \
         cmake \
         git \
@@ -24,9 +24,9 @@ RUN apt-get update && apt-get install -y \
         libprotobuf-dev \
         libsnappy-dev \
         protobuf-compiler \
-		dcmtk \
-		libaio1 \
-		python3 \
+        dcmtk \
+        libaio1 \
+        python3 \
         python3-dev \
         python3-pip \
         python3-setuptools && \
@@ -43,13 +43,13 @@ ENV LANG C.UTF-8
 
 # python packages
 RUN python3 -m pip install --upgrade pip && \
-	pip3 install cx_Oracle sqlalchemy \
-				 pydicom deid \
-				 opencv-python pillow \
-			     numpy scipy pandas \
-				 tqdm \
-				 tensorflow keras \
-				 flask flask_sqlalchemy
+    pip3 install cx_Oracle sqlalchemy \
+                 pydicom deid \
+                 opencv-python pillow \
+                 numpy scipy pandas \
+                 tqdm \
+                 tensorflow keras \
+                 flask flask_sqlalchemy
 
 ENV CAFFE_ROOT=/opt/caffe
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
@@ -63,13 +63,13 @@ RUN git clone -b 1.0 --depth 1 https://github.com/BVLC/caffe.git . && \
     mkdir build && cd build && \
     cmake -DCPU_ONLY=1 -Dpython_version=3 .. && \
     make -j"$(nproc)" && \
-    echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig 
+    echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
 
 # pynetdicom3
 WORKDIR /opt/pynetdicom3
 
 RUN git clone --depth 1 https://github.com/pydicom/pynetdicom3.git . && \
-	python3 setup.py install && \
+    python3 setup.py install && \
     cd / && rm -rf /opt/pynetdicom3
 
 # Application layer

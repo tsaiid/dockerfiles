@@ -20,18 +20,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libsnappy-dev \
         protobuf-compiler \
         python3-dev \
-		dcmtk && \
+    dcmtk && \
     rm -rf /var/lib/apt/lists/*
 
 # python packages
 RUN python3 -m pip install --upgrade pip && \
-	pip3 install cx_Oracle sqlalchemy \
-				 pydicom deid \
-				 opencv-python pillow \
-			     numpy scipy pandas \
-				 tqdm \
-				 tensorflow keras \
-				 flask flask_sqlalchemy
+    pip3 install cx_Oracle sqlalchemy \
+                 pydicom deid \
+                 opencv-python pillow \
+                 numpy scipy pandas \
+                 tqdm \
+                 tensorflow keras \
+                 flask flask_sqlalchemy
 
 ENV CAFFE_ROOT=/opt/caffe
 ENV PYCAFFE_ROOT $CAFFE_ROOT/python
@@ -60,7 +60,7 @@ RUN git clone -b 1.0 --depth 1 https://github.com/BVLC/caffe.git . && \
 WORKDIR /opt/pynetdicom3
 
 RUN git clone --depth 1 https://github.com/pydicom/pynetdicom3.git . && \
-	python3 setup.py install && \
+    python3 setup.py install && \
     cd / && rm -rf /opt/pynetdicom3
 
 # Application layer

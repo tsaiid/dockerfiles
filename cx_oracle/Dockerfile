@@ -23,5 +23,5 @@ ENV LANG C.UTF-8
 
 # Python3 + cx_Oracle layer
 RUN python3 -m pip install --upgrade pip && \
-	pip3 install cx_Oracle
+    pip3 install cx_Oracle
 
