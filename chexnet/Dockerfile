@@ -6,7 +6,8 @@ RUN pip install --upgrade pip && \
       scikit-image \
       imgaug \
       opencv-python && \
-    conda clean -yt
+    conda clean -yt && \
+    echo 'alias jn="jupyter notebook --allow-root --no-browser --ip=\"*\""' >> ~/.bashrc
 
 WORKDIR /app
 

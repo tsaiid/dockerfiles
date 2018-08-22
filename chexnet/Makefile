@@ -2,7 +2,7 @@ help:
 	@cat Makefile
 
 IMAGE=tsaiid/chexnet
-DATA?=/media/mx300/femh-cxr
+DATA?=/home/data
 GPU?=1
 DOCKER_FILE=Dockerfile
 DOCKER=GPU=$(GPU) nvidia-docker
@@ -17,4 +17,8 @@ build:
 	docker build -t $(IMAGE) -f $(DOCKER_FILE) .
 
 bash: build
-	$(DOCKER) run -it -v $(SRC):/src/workspace -v $(DATA):/data -v /home/tsaiid/git/CheXNet-Keras:/app --net=host --env KERAS_BACKEND=$(BACKEND) $(IMAGE) bash
+	$(DOCKER) run -it \
+		-v $(SRC):/src/workspace \
+		-v $(DATA):/data \
+		-v /home/tsaiid/git/CheXNet-Keras:/app \
+		--net=host --env KERAS_BACKEND=$(BACKEND) $(IMAGE) bash
