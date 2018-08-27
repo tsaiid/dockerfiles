@@ -21,9 +21,9 @@ RUN apt-get update && apt-get install -y \
         libprotobuf-dev \
         libsnappy-dev \
         protobuf-compiler \
-		dcmtk \
-		libaio1 \
-		python3 \
+        dcmtk \
+        libaio1 \
+        python3 \
         python3-dev \
         python3-pip \
         python3-setuptools && \
@@ -52,7 +52,7 @@ RUN echo "$CAFFE_ROOT/build/lib" >> /etc/ld.so.conf.d/caffe.conf && ldconfig
 WORKDIR /opt/pynetdicom3
 
 RUN git clone --depth 1 https://github.com/pydicom/pynetdicom3.git . && \
-	python3 setup.py install && \
+    python3 setup.py install && \
     cd / && rm -rf /opt/pynetdicom3
 
 # Oracle
@@ -75,13 +75,13 @@ ENV LANG C.UTF-8
 
 # python packages
 RUN python3 -m pip install --upgrade pip && \
-	pip3 install cx_Oracle sqlalchemy \
-				 pydicom deid \
-				 opencv-python pillow \
-			     numpy==1.14.5 scipy pandas \
-				 tqdm \
-				 tensorflow-gpu keras \
-				 flask flask_sqlalchemy
+    pip3 install cx_Oracle sqlalchemy \
+                 pydicom deid \
+                 opencv-python pillow \
+                 numpy==1.14.5 scipy pandas \
+                 tqdm \
+                 tensorflow-gpu keras \
+                 flask flask_sqlalchemy
 
 # Clean
 #RUN apt-get -y autoremove && apt-get clean && \
