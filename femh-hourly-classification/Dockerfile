@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 # -- Install Application into container:
 WORKDIR /app
 
-RUN git clone -b v0.1 --depth 1 https://github.com/tsaiid/femh-dicom.git . && \
+RUN git clone -b v0.1.1 --depth 1 https://github.com/tsaiid/femh-dicom.git . && \
     pip3 install -r requirements.txt 
 
 RUN groupadd -g 1000 appuser && \
