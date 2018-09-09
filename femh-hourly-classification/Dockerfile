@@ -11,7 +11,10 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 RUN git clone -b v0.1.1 --depth 1 https://github.com/tsaiid/femh-dicom.git . && \
-    pip3 install -r requirements.txt 
+    pip3 install -r requirements.txt
+
+COPY config/cxr-20180906.yml config/cxr.yml
+COPY models models
 
 RUN groupadd -g 1000 appuser && \
     useradd -r -u 1000 -g appuser appuser && \
