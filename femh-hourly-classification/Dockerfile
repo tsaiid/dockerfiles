@@ -10,10 +10,10 @@ RUN apt-get update && apt-get install -y \
 # -- Install Application into container:
 WORKDIR /app
 
-RUN git clone -b v0.2.4 --depth 1 https://github.com/tsaiid/femh-dicom.git . && \
+RUN git clone -b v0.2.8 --depth 1 https://github.com/tsaiid/femh-dicom.git . && \
     pip3 install --no-cache-dir -r requirements.txt
 
-COPY config/cxr-20180913.yml config/cxr.yml
+COPY config/cxr-20190223.yml config/cxr.yml
 COPY models models
 
 RUN groupadd -g 1000 appuser && \
