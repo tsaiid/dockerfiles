@@ -1,6 +1,6 @@
 version: '3'
 services:
-    reverseproxy:
+    reverse-proxy:
         image: nginx:alpine
         container_name: reverse-proxy
         volumes:
@@ -12,10 +12,11 @@ services:
             - 443:443
         networks:
             - nginx-network
+        depends_on:
+            - ris-flask
+            - cxr-ai-flask
 
     ris-flask:
-        depends_on:
-            - reverseproxy
         image: tsaiid/ris-flask
         container_name: ris-flask
         expose:
@@ -26,8 +27,6 @@ services:
             - nginx-network
 
     cxr-ai-flask:
-        depends_on:
-            - reverseproxy
         image: tsaiid/cxr-ai-flask
         container_name: cxr-ai-flask
         expose:
