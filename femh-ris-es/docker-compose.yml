@@ -65,9 +65,11 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ./.htpasswd:/etc/nginx/.htpasswd
+      - ./www:/var/www/html
     ports:
-      - 9200:9200
-      - 5601:5601
+      - 8092:8092 # serve frontend
+      - 9200:9200 # es
+      - 5601:5601 # kibana
     networks:
       - esnet
     depends_on:
